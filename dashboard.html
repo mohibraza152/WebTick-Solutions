@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebTick Solutions – Dashboard</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+  <!-- Charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    body {
+      background:#0f0f0f;
+      color:#fff;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .sidebar {
+      width:260px;
+      height:100vh;
+      background:#151515;
+      position:fixed;
+      top:0;
+      left:0;
+      padding:20px;
+      overflow-y:auto;
+      border-right:1px solid #222;
+    }
+
+    .sidebar h2 {
+      font-size:22px;
+      margin-bottom:30px;
+      font-weight:600;
+      color:#0dcaf0;
+    }
+
+    .sidebar a {
+      display:block;
+      padding:12px;
+      margin-bottom:10px;
+      background:#1c1c1c;
+      text-decoration:none;
+      color:#bbb;
+      border-radius:8px;
+      transition:0.3s;
+    }
+
+    .sidebar a:hover {
+      background:#0dcaf0;
+      color:#000;
+    }
+
+    .content {
+      margin-left:280px;
+      padding:30px;
+    }
+
+    .card {
+      background:#1a1a1a;
+      border:none;
+      border-radius:12px;
+      padding:20px;
+      color:#fff;
+    }
+
+    .card h5 {
+      font-weight:500;
+    }
+
+    .logout-btn{
+      margin-top:30px;
+      background:#ff4747;
+      color:#fff;
+      padding:10px 20px;
+      border-radius:8px;
+      display:inline-block;
+      text-decoration:none;
+      text-align:center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h2>WebTick Solutions</h2>
+
+    <a href="#"><i class="bi bi-speedometer2"></i> Dashboard Overview</a>
+    <a href="#"><i class="bi bi-people"></i> Employees</a>
+    <a href="#"><i class="bi bi-person-check"></i> Clients</a>
+    <a href="#"><i class="bi bi-cash-stack"></i> Payments</a>
+    <a href="#"><i class="bi bi-bar-chart"></i> Analytics</a>
+    <a href="#"><i class="bi bi-kanban"></i> Projects</a>
+    <a href="#"><i class="bi bi-briefcase"></i> Services</a>
+    <a href="#"><i class="bi bi-gear"></i> Settings</a>
+
+    <a href="javascript:void(0)" onclick="logoutUser()" class="logout-btn">
+      <i class="bi bi-box-arrow-right"></i> Logout
+    </a>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <section class="content">
+
+    <h2 class="mb-4">Dashboard Overview</h2>
+
+    <!-- Top Stats -->
+    <div class="row g-4 mb-4">
+      <div class="col-md-3">
+        <div class="card">
+          <h5>Total Revenue</h5>
+          <h3>$12,450</h3>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card">
+          <h5>Active Clients</h5>
+          <h3>38</h3>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card">
+          <h5>Completed Projects</h5>
+          <h3>112</h3>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card">
+          <h5>Team Members</h5>
+          <h3>14</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="row g-4">
+
+      <!-- Payment Chart -->
+      <div class="col-lg-6">
+        <div class="card">
+          <h5>Monthly Revenue</h5>
+          <canvas id="revenueChart"></canvas>
+        </div>
+      </div>
+
+      <!-- User Activity Chart -->
+      <div class="col-lg-6">
+        <div class="card">
+          <h5>User Activity</h5>
+          <canvas id="userChart"></canvas>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- User Behaviour + Activity Logs -->
+    <div class="row g-4 mt-4">
+      <div class="col-md-6">
+        <div class="card">
+          <h5>User Behaviour</h5>
+          <p>- Most visited pages: Home, Pricing, Portfolio</p>
+          <p>- Peak traffic: 7 PM - 10 PM</p>
+          <p>- Returning visitors: 64%</p>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card">
+          <h5>Recent Activity Logs</h5>
+          <p>Ali logged in · 2 hours ago</p>
+          <p>New client onboarding completed</p>
+          <p>Payment received from XYZ Company</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- CHART SCRIPTS -->
+  <script>
+    // Revenue Chart
+    const ctx1 = document.getElementById('revenueChart');
+    new Chart(ctx1, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+          label: 'Revenue ($)',
+          data: [800, 1200, 900, 1500, 1800, 2000],
+          borderWidth: 2
+        }]
+      }
+    });
+
+    // User Activity Chart
+    const ctx2 = document.getElementById('userChart');
+    new Chart(ctx2, {
+      type: 'bar',
+      data: {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        datasets: [{
+          label: 'Active Users',
+          data: [40, 55, 60, 48, 68, 75, 50],
+          borderWidth: 1
+        }]
+      }
+    });
+
+    // Logout Logic (works with your existing login system)
+    function logoutUser() {
+      localStorage.removeItem("token");
+      window.location.href = "login.html";
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --primary-blue: #2f6c80;
+      --light-bg: #f3f8fa;
+      --text-dark: #333;
+      --card-bg: #fff;
+    }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--light-bg);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      background: var(--card-bg);
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+    h1 {
+      color: var(--primary-blue);
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+    select, input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    .payment-details {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 8px;
+      background: #f9fcfd;
+      border: 1px solid #ddd;
+    }
+    .dual-layout {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .dual-layout .left, .dual-layout .right {
+      flex: 1 1 200px;
+      min-width: 200px;
+    }
+    .dual-layout img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+    .btn-pay {
+      margin-top: 25px;
+      background: var(--primary-blue);
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .btn-pay:hover {
+      opacity: 0.9;
+    }
+    @media (max-width:600px){
+      .container{
+        padding: 20px;
+        margin: 20px;
+      }
+      .dual-layout {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Complete Your Payment</h1>
+
+    <label for="paymentMethod">Select Payment Method</label>
+    <select id="paymentMethod">
+      <option value="">-- Choose Payment --</option>
+      <option value="payoneer">Payoneer</option>
+      <option value="bank">Bank Transfer (Wire)</option>
+      <option value="crypto">Crypto (USDT)</option>
+      <option disabled value="stripe">Stripe (Debit/Credit Card)</option>
+      <option disabled value="paypal">PayPal</option>
+    </select>
+
+    <div id="paymentDetails" class="payment-details">
+      <p>Please select a payment method to see details.</p>
+    </div>
+
+    <button class="btn-pay" id="payBtn">Done</button>
+  </div>
+
+  <script>
+    const paymentMethod = document.getElementById("paymentMethod");
+    const paymentDetails = document.getElementById("paymentDetails");
+    const payBtn = document.getElementById("payBtn");
+
+    paymentMethod.addEventListener("change", e => {
+      const val = e.target.value;
+
+      if (val === "stripe") {
+        paymentDetails.innerHTML = `
+          <label>Card Number</label>
+          <input type="text" placeholder="1234 5678 9012 3456">
+          <label>Expiry Date</label>
+          <input type="text" placeholder="MM/YY">
+          <label>CVV</label>
+          <input type="number" placeholder="123">
+        `;
+      } else if (val === "paypal") {
+        paymentDetails.innerHTML = `<p class="text-muted">You will be redirected to PayPal to complete your payment.</p>`;
+      } else if (val === "payoneer") {
+        paymentDetails.innerHTML = `<p class="text-muted">Payoneer Email: <a href="mailto:your@email.com">your@email.com</a></p>`;
+      } else if (val === "bank") {
+        paymentDetails.innerHTML = `
+    
+            <div class="left">
+              <p><strong>Bank Name:</strong> Meezan Bank</p>
+              <p><strong>Account Title:</strong> Muhammad Mohib Raza</p>
+              <p><strong>Account Number:</strong> 01280113832994</p>
+              <p><strong>IBAN:</strong> PK14MEZN0001280113832994</p>
+              <p><strong>Branch Code:</strong> 0128</p>
+              <p><strong>Swift Code:</strong> MEZNPKKA</p>
+            </div>
+        `;
+      } else if (val === "crypto") {
+        paymentDetails.innerHTML = `
+    
+            <div class="left">
+              <p><strong>Wallet Address:</strong> TLechLJNcNAPRMYkqc3UMdchJGoCHA26Go</p>
+              <p><strong>Network:</strong> TRON (TRC20)</p>
+              <p><strong>Coin:</strong> USDT (Tether)</p>
+              </div>
+        `;
+      } else {
+        paymentDetails.innerHTML = `<p>Please select a payment method to see details.</p>`;
+      }
+    });
+
+    payBtn.addEventListener("click", () => {
+      if(!paymentMethod.value){
+        alert("Please select a payment method first.");
+        return;
+      }
+      // Here you can add your payment verification logic or redirection
+      alert("Payment initiated for: " + paymentMethod.value);
+    });
+  </script>
+
+</body>
+</html>

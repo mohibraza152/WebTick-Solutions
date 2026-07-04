@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Login | WebTick Solutions</title>
+  <meta name="description" content="Login to your WebTick Solutions account to access your projects, AI tools, web development services, and account management features.">
+  <meta name="keywords" content="WebTick Solutions, login, user account, AI tools, web development services, dashboard">
+  <meta name="author" content="WebTick Solutions">
+  <meta name="robots" content="noindex, nofollow">
+
+  <meta property="og:title" content="Login | WebTick Solutions">
+  <meta property="og:description" content="Access your WebTick Solutions account to manage projects, AI tools, and web development services.">
+  <meta property="og:image" content="https://webticksolutions.netlify.app/assets/img/WS_1.png">
+  <meta property="og:url" content="https://webticksolutions.netlify.app/login">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #2f6c80;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 13px;
+      margin-top: -10px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .login-card {
+      background: #fff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .login-card h2 {
+      margin-bottom: 25px;
+      font-size: 28px;
+      color: #111827;
+    }
+
+    .login-card form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .login-card input {
+      padding: 12px 15px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      outline: none;
+      transition: 0.2s all;
+    }
+
+    .login-card input:focus {
+      border-color: #2f6c80;
+      box-shadow: 0 0 5px rgba(59,130,246,0.3);
+    }
+
+    .login-card button {
+      padding: 12px;
+      font-size: 16px;
+      font-weight: 500;
+      border-radius: 8px;
+      border: none;
+      background-color: #2f6c80;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.2s all;
+    }
+
+    .login-card button:hover {
+      background-color: #2f6c80;
+    }
+
+    .login-card .switch-link {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    .login-card .switch-link a {
+      color: #2f6c80;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .login-card .switch-link a:hover {
+      text-decoration: underline;
+    }
+
+    .policy-check {
+  margin: 15px 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.policy-check label {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.policy-check input[type="checkbox"] {
+  margin-top: 4px;
+  accent-color: #2f6c80; /* tumhari blue theme */
+}
+
+.policy-check a {
+  color: #2f6c80;
+  text-decoration: underline;
+}
+
+.policy-check a:hover {
+  opacity: 0.85;
+}
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <h2>Login to WebTick</h2>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="Email" required />
+      <span id="emailError" class="error-message"></span>
+
+      <input type="password" id="password" placeholder="Password" required />
+      <span id="passwordError" class="error-message"></span>
+
+ <div class="policy-check">
+  <label>
+    <input type="checkbox" class="policy-checkbox" required>
+    I agree to the
+    <a href="policy.html">Privacy Policy</a>
+    and
+    <a href="T&C.html">Terms & Conditions</a>
+  </label>
+</div>
+
+      <button type="submit">Login</button>
+    </form>
+    <p class="switch-link">Don't have an account? <a href="signup.html">Sign Up</a></p>
+  </div>
+  
+
+<script>
+const loginForm = document.getElementById('loginForm');
+const emailError = document.getElementById('emailError');
+const passwordError = document.getElementById('passwordError');
+
+loginForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  emailError.textContent = '';
+  passwordError.textContent = '';
+
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
+
+  let hasError = false;
+
+  // Validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    emailError.textContent = "Please enter a valid email";
+    hasError = true;
+  }
+
+  if (!password || password.length < 6) {
+    passwordError.textContent = "Password must be at least 6 characters";
+    hasError = true;
+  }
+
+  if (hasError) return;
+
+  try {
+    const response = await fetch('http://localhost:5000/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+
+    const data = await response.json();
+
+    // ❗ FIXED: Only success flag matters
+    if (data.success === true) {
+      localStorage.setItem('token', data.token);
+      window.location.href = "index.html";
+    } else {
+      passwordError.textContent = data.message || "Invalid credentials";
+    }
+
+  } catch (err) {
+    passwordError.textContent = "Server not reachable. Please try again later.";
+    console.error(err);
+  }
+});
+</script>
+
+
+<script>
+blockAuthPages(); // If logged in → avoid login page
+</script>
+
+<script src="assets/js/auth-guard.js"></script>
+</body>
+</html>

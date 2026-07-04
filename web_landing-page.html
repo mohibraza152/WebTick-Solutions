@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web Design & Development Services</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: #0b0f1a;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    /* HERO */
+    header {
+      padding: 90px 0;
+      text-align: center;
+      background: linear-gradient(135deg, #0f172a, #020617);
+    }
+
+    header h1 {
+      font-size: 44px;
+      margin-bottom: 15px;
+    }
+
+    header p {
+      font-size: 18px;
+      color: #cbd5f5;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      background: #38bdf8;
+      color: #000;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #0ea5e9;
+    }
+
+    section {
+      padding: 75px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 45px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: #111827;
+      padding: 28px;
+      border-radius: 12px;
+      border: 1px solid #1f2937;
+      transition: 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: #38bdf8;
+    }
+
+    .card h3 {
+      margin-bottom: 12px;
+      color: #38bdf8;
+      font-size: 20px;
+    }
+
+    .card p {
+      color: #d1d5db;
+      font-size: 15px;
+    }
+
+    /* STEPS */
+    .steps {
+      text-align: center;
+    }
+
+    /* CTA */
+    .cta {
+      text-align: center;
+      background: #020617;
+      padding: 90px 20px;
+      border-top: 1px solid #1f2937;
+      border-bottom: 1px solid #1f2937;
+    }
+
+    .cta h2 {
+      font-size: 36px;
+      margin-bottom: 15px;
+    }
+
+    .cta p {
+      margin-bottom: 25px;
+      color: #cbd5f5;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      font-size: 14px;
+      color: #9ca3af;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 32px;
+      }
+
+      .cta h2 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <header>
+    <div class="container">
+      <h1>High-Converting Websites That Grow Your Business</h1>
+      <p>Modern, fast, and responsive websites designed to attract users and convert visitors into customers.</p>
+      <a href="https://wa.me/923378039943" class="btn">Get Free Consultation</a>
+    </div>
+  </header>
+
+  <!-- PROBLEMS -->
+  <section>
+    <div class="container">
+      <h2 class="section-title">Is Your Website Holding You Back?</h2>
+      <div class="grid">
+        <div class="card">Outdated or unprofessional design</div>
+        <div class="card">Slow loading speed & poor performance</div>
+        <div class="card">Not mobile-friendly</div>
+        <div class="card">Low conversions & no clear CTA</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section>
+    <div class="container">
+      <h2 class="section-title">Web Design & Development Solutions</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>UI/UX Web Design</h3>
+          <p>Clean, modern, and user-focused designs that build trust and engagement.</p>
+        </div>
+
+        <div class="card">
+          <h3>Website Development</h3>
+          <p>Fast, secure, and scalable websites using modern technologies.</p>
+        </div>
+
+        <div class="card">
+          <h3>Landing Pages</h3>
+          <p>High-converting landing pages for ads, startups, and SaaS products.</p>
+        </div>
+
+        <div class="card">
+          <h3>E-Commerce Websites</h3>
+          <p>Online stores optimized for conversions and smooth user experience.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section>
+    <div class="container">
+      <h2 class="section-title">How It Works</h2>
+      <div class="grid steps">
+        <div class="card">
+          <h3>1. Strategy</h3>
+          <p>We understand your business goals & target audience.</p>
+        </div>
+
+        <div class="card">
+          <h3>2. Design & Build</h3>
+          <p>We design and develop a conversion-focused website.</p>
+        </div>
+
+        <div class="card">
+          <h3>3. Launch & Scale</h3>
+          <p>Your website goes live, ready to generate leads & sales.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="contact">
+    <h2>Ready to Upgrade Your Website?</h2>
+    <p>Let’s build a website that actually works for your business.</p>
+    <a href="https://wa.me/923378039943" class="btn">Get Free Consultation</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2026 Web Design & Development Services. All Rights Reserved.
+  </footer>
+
+</body>
+</html>

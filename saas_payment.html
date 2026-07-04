@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-blue: #2f6c80;
+      --light-bg: #f3f8fa;
+      --text-dark: #333;
+      --card-bg: #fff;
+    }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--light-bg);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      background: var(--card-bg);
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+    h1 {
+      color: var(--primary-blue);
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+    select, input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    .payment-details {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 8px;
+      background: #f9fcfd;
+      border: 1px solid #ddd;
+    }
+    .dual-layout {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .dual-layout .left, .dual-layout .right {
+      flex: 1 1 200px;
+      min-width: 200px;
+    }
+    .dual-layout img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+    .btn-pay {
+      margin-top: 10px;
+      background: var(--primary-blue);
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+    }
+    .btn-pay:hover {
+      opacity: 0.9;
+    }
+    @media (max-width:600px){
+      .container{
+        padding: 20px;
+        margin: 20px;
+      }
+      .dual-layout {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Complete Your Payment</h1>
+
+    <label for="paymentMethod">Select Payment Method</label>
+    <select id="paymentMethod">
+      <option value="">-- Choose Payment --</option>
+      <option value="bank">Bank Transfer (Wire)</option>
+      <option value="crypto">Crypto (USDT)</option>
+      <option disabled value="payoneer">Payoneer</option>
+      <option disabled value="stripe">Stripe (Debit/Credit Card)</option>
+      <option disabled value="paypal">PayPal</option>
+    </select>
+
+    <div id="paymentDetails" class="payment-details">
+      <p>Please select a payment method to see details.</p>
+    </div>
+
+    <p class="mt-5 text-muted small">
+  <strong>Note:</strong> Once your payment is successfully processed, your AI agent will be delivered within 3-5 business days. We'll appreciate your patience and look forward to supporting your journey.
+</p>
+
+    <button class="btn-pay" id="payBtn">I’ve Completed the Payment</button>
+  </div>
+
+  <script>
+ // ===== PAYMENT MODAL LOGIC =====
+
+const paymentMethodModal = document.getElementById("paymentMethodModal");
+const paymentDetailsModal = document.getElementById("paymentDetailsModal");
+const payBtnModal = document.getElementById("payBtnModal");
+
+// Payment method change pe details show karo
+paymentMethodModal.addEventListener("change", e => {
+  const val = e.target.value;
+
+  if (val === "bank") {
+    paymentDetailsModal.innerHTML = `
+      <div style="display:flex; gap:20px; flex-wrap:wrap;">
+        <div style="flex:1; min-width:200px;">
+          <p><strong>Bank Name:</strong> Meezan Bank</p>
+          <p><strong>Account Title:</strong> Muhammad Mohib Raza</p>
+          <p><strong>Account Number:</strong> 01280113832994</p>
+          <p><strong>IBAN:</strong> PK14MEZN0001280113832994</p>
+          <p><strong>Branch Code:</strong> 0128</p>
+          <p><strong>Swift Code:</strong> MEZNPKKA</p>
+        </div>
+        <div style="flex:1; min-width:200px;">
+          <label class="form-label mt-2">Upload Payment Screenshot *</label>
+          <input type="file" id="paymentProofModal" accept="image/*" class="form-control">
+          <small class="text-muted">Upload bank transfer receipt</small>
+        </div>
+      </div>
+    `;
+  } else if (val === "crypto") {
+    paymentDetailsModal.innerHTML = `
+      <div style="display:flex; gap:20px; flex-wrap:wrap;">
+        <div style="flex:1; min-width:200px;">
+          <p><strong>Wallet Address:</strong> TLechLJNcNAPRMYkqc3UMdchJGoCHA26Go</p>
+          <p><strong>Network:</strong> TRON (TRC20)</p>
+          <p><strong>Coin:</strong> USDT (Tether)</p>
+        </div>
+        <div style="flex:1; min-width:200px;">
+          <label class="form-label mt-2">Upload Payment Screenshot *</label>
+          <input type="file" id="paymentProofModal" accept="image/*" class="form-control">
+          <small class="text-muted">Upload transaction confirmation</small>
+        </div>
+      </div>
+    `;
+  } else {
+    paymentDetailsModal.innerHTML = `<p class="text-muted">Please select a payment method to see details.</p>`;
+  }
+});
+
+// Submit button
+payBtnModal.addEventListener("click", () => {
+  const selectedPayment = paymentMethodModal.value;
+
+  if (!selectedPayment) {
+    alert("Please select a payment method.");
+    return;
+  }
+
+  let attachment = null;
+  if (selectedPayment === "bank" || selectedPayment === "crypto") {
+    const fileInput = document.getElementById("paymentProofModal");
+    if (!fileInput || !fileInput.files.length) {
+      alert("Please upload payment screenshot to continue.");
+      return;
+    }
+    attachment = fileInput.files[0];
+  }
+
+  // LocalStorage se form data lo
+  const formData = JSON.parse(localStorage.getItem("saasFormData") || "{}");
+  if (!formData || Object.keys(formData).length === 0) {
+    alert("Form data not found. Please fill the form again.");
+    return;
+  }
+
+  const params = {
+    formData,
+    paymentMethod: selectedPayment
+  };
+
+  function sendEmailWithAttachment(base64Attachment = null) {
+    if (base64Attachment) {
+      params.attachment = base64Attachment;
+    }
+
+    // Button disable karo taake double-submit na ho
+    payBtnModal.disabled = true;
+    payBtnModal.textContent = "Submitting...";
+
+    emailjs.send("service_eexjjk6", "template_zkz61o4", params)
+      .then(() => {
+        alert("Your response has been submitted successfully!");
+        localStorage.removeItem("saasFormData");
+
+        // Modal band karo
+        const modal = bootstrap.Modal.getInstance(document.getElementById("paymentModal"));
+        if (modal) modal.hide();
+
+        // Redirect
+        window.location.href = "aiagents.html";
+      })
+      .catch(err => {
+        console.error(err);
+        alert("Email failed. Please try again.");
+        payBtnModal.disabled = false;
+        payBtnModal.textContent = "I've Completed the Payment";
+      });
+  }
+
+  if (attachment) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      sendEmailWithAttachment(e.target.result);
+    };
+    reader.readAsDataURL(attachment);
+  } else {
+    sendEmailWithAttachment();
+  }
+});
+</script>
+
+<!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- <script src="assets/vendor/php-email-form/validate.js"></script> -->
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+
+  <!-- Main JS File -->
+ <script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
+
+<script>
+  emailjs.init("ppHT8RwHKyFksHOIu");
+</script>
+
+  
+<script src="assets/js/agents.js"></script>  
+
+</body>
+</html>

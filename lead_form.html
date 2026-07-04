@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Project Inquiry | WebTick Solutions</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+:root{
+  --bg-dark:#0f1020;
+  --card-bg:#ffffff;
+  --primary:#2f6c80;
+  --secondary:#2f6c80;
+  --text:#000000;
+  --muted:#ffffff;
+  --border:rgba(255,255,255,0.12);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  min-height:100vh;
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:40px 16px;
+}
+
+.form-wrapper{
+  width:100%;
+  max-width:620px;
+  background:var(--card-bg);
+  border-radius:18px;
+  padding:40px 36px;
+  box-shadow:0 30px 60px rgba(0,0,0,0.4);
+}
+
+.form-header{
+  margin-bottom:30px;
+}
+
+.form-header h1{
+  color:var(--text);
+  font-size:28px;
+  font-weight:600;
+}
+
+.form-header p{
+  color:black;
+  font-size:14px;
+  margin-top:6px;
+}
+
+.form-group{
+  margin-bottom:18px;
+}
+
+label{
+  display:block;
+  color:var(--text);
+  font-size:14px;
+  margin-bottom:6px;
+  font-size: 16px;
+}
+
+input,
+textarea{
+  width:100%;
+  padding:14px 14px;
+  border-radius:10px;
+  background:#ebebeb;
+  border:1px solid var(--border);
+  color:var(--text);
+  font-size:14px;
+  outline:none;
+  transition:.25s;
+}
+
+input::placeholder,
+textarea::placeholder{
+  color:#908d8d;
+}
+
+input:focus,
+textarea:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 2px rgba(0, 0, 0, 0.25);
+}
+
+textarea{
+  resize:none;
+  min-height:90px;
+}
+
+button{
+  width:100%;
+  padding:15px;
+  margin-top:10px;
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
+  border:none;
+  border-radius:12px;
+  color:white;
+  font-size:15px;
+  font-weight:500;
+  cursor:pointer;
+  transition:.25s;
+}
+
+button:hover{
+  transform:translateY(-1px);
+  opacity: 0.8;
+}
+
+/* Custom Multi-Select Dropdown Fixes */
+.multi-select-wrapper{
+  position: relative;
+  background:#ebebeb;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:12px;
+  cursor:pointer;
+  color:var(--text);
+}
+
+.multi-select-wrapper:hover{
+  border-color: var(--primary);
+}
+
+.multi-select-wrapper span{
+  display:inline-block;
+  min-height:16px;
+  font-size: 14px;
+}
+
+.multi-select-dropdown{
+  position:absolute;
+  top:100%;
+  left:0;
+  width:100%;
+  max-height:220px;
+  overflow-y:auto;
+  background:#ebebeb;
+  border:1px solid var(--border);
+  border-radius:10px;
+  margin-top:5px;
+  display:none;
+  z-index:10;
+  padding:10px; /* Added inner padding for better spacing */
+}
+
+.multi-select-dropdown strong{
+  display:block;
+  font-size:13px;
+  margin:6px 0 4px 0;
+  color:var(--muted);
+}
+
+.multi-select-dropdown label{
+  display:flex;
+  align-items:center;
+  gap:10px; /* Proper spacing between checkbox and text */
+  padding:8px 12px; /* Even padding for each option */
+  cursor:pointer;
+  font-size:14px;
+  color: var(--text);
+}
+
+.multi-select-dropdown label input[type="checkbox"]{
+  flex-shrink:0;
+  width:16px;
+  height:16px;
+  accent-color: var(--primary); /* Checkbox color matches theme */
+}
+
+.multi-select-dropdown label:hover{
+  background: rgba(102,126,234,0.15); /* Subtle hover effect */
+}
+
+.other-input{
+  margin-top:10px;
+  display:none;
+}
+</style>
+</head>
+<body>
+
+<div class="form-wrapper">
+  <div class="form-header">
+    <h1>Get Started</h1>
+    <p>Tell us what you’re looking for and we’ll reach out shortly.</p>
+  </div>
+
+  <form id="leadForm">
+
+    <div class="form-group">
+      <label>Full Name *</label>
+      <input type="text" name="full_name" required placeholder="John Doe">
+    </div>
+
+    <div class="form-group">
+      <label>Email *</label>
+      <input type="email" name="email" required placeholder="john@email.com">
+    </div>
+
+    <div class="form-group">
+      <label>Phone / WhatsApp *</label>
+      <input type="tel" name="phone" required placeholder="+92 3XX XXXXXXX">
+    </div>
+
+    <!-- SERVICE -->
+    <div class="form-group">
+      <label>Service Interested In *</label>
+      <div class="multi-select-wrapper" onclick="toggleDropdown(this)">
+        <span>Select services <i class="bi bi-chevron-down"></i></span>
+        <div class="multi-select-dropdown">
+          <strong style="color:#000000;display:block;margin:6px 0;">Web Services</strong>
+          <label><input type="checkbox" value="Web Designing"> Web Designing</label>
+          <label><input type="checkbox" value="Web Development"> Web Development</label>
+          <label><input type="checkbox" value="E-commerce Website"> E-commerce Website</label>
+          <label><input type="checkbox" value="Custom Web Application"> Custom Web Application</label>
+          <label><input type="checkbox" value="Backend & API Development"> Backend & API Development</label>
+          <label><input type="checkbox" value="Technical Support"> Technical Support</label>
+
+          <strong style="color:#000000;display:block;margin:6px 0;">AI Agents & Automations</strong>
+          <label><input type="checkbox" value="AI Chatbot"> AI Chatbot</label>
+          <label><input type="checkbox" value="AI Email Writer"> AI Email Writer</label>
+          <label><input type="checkbox" value="AI Specifier"> AI Specifier</label>
+          <label><input type="checkbox" value="AI Excel Sheet Generator"> AI Excel Sheet Generator</label>
+          <label><input type="checkbox" value="AI Email / SMS Automation"> AI Email / SMS Automation</label>
+          <label><input type="checkbox" value="Other" onchange="toggleOther(this,'serviceOther')"> Other</label>
+        </div>
+      </div>
+      <input class="other-input" id="serviceOther" placeholder="Please specify service">
+    </div>
+
+    <!-- BUDGET -->
+    <div class="form-group">
+      <label>Budget Range *</label>
+      <div class="multi-select-wrapper" onclick="toggleDropdown(this)">
+        <span>Select budget <i class="bi bi-chevron-down"></i></span>
+        <div class="multi-select-dropdown">
+          <label><input type="checkbox" value="$200 – $500"> $200 – $500</label>
+          <label><input type="checkbox" value="$500 – $1,000"> $500 – $1,000</label>
+          <label><input type="checkbox" value="$1,000 – $3,000"> $1,000 – $3,000</label>
+          <label><input type="checkbox" value="$3,000+"> $3,000+</label>
+          <label><input type="checkbox" value="Other" onchange="toggleOther(this,'budgetOther')"> Other</label>
+        </div>
+      </div>
+      <input class="other-input" id="budgetOther" placeholder="Enter budget range">
+    </div>
+
+    <!-- TIMELINE -->
+    <div class="form-group">
+      <label>Timeline *</label>
+      <div class="multi-select-wrapper" onclick="toggleDropdown(this)">
+        <span>Select timeline <i class="bi bi-chevron-down"></i></span>
+        <div class="multi-select-dropdown">
+          <label><input type="checkbox" value="ASAP"> ASAP</label>
+          <label><input type="checkbox" value="1–2 Weeks"> 1–2 Weeks</label>
+          <label><input type="checkbox" value="1 Month"> 1 Month</label>
+          <label><input type="checkbox" value="Flexible"> Flexible</label>
+          <label><input type="checkbox" value="Other" onchange="toggleOther(this,'timelineOther')"> Other</label>
+        </div>
+      </div>
+      <input class="other-input" id="timelineOther" placeholder="Enter timeline">
+    </div>
+
+    <!-- GOAL -->
+    <div class="form-group">
+      <label>Project Goal *</label>
+      <div class="multi-select-wrapper" onclick="toggleDropdown(this)">
+        <span>Select goal <i class="bi bi-chevron-down"></i></span>
+        <div class="multi-select-dropdown">
+          <label><input type="checkbox" value="Generate Leads"> Generate Leads</label>
+          <label><input type="checkbox" value="Increase Sales"> Increase Sales</label>
+          <label><input type="checkbox" value="Automate Operations"> Automate Operations</label>
+          <label><input type="checkbox" value="Build Brand Presence"> Build Brand Presence</label>
+          <label><input type="checkbox" value="Other" onchange="toggleOther(this,'goalOther')"> Other</label>
+        </div>
+      </div>
+      <input class="other-input" id="goalOther" placeholder="Describe your goal">
+    </div>
+
+    <div class="form-group">
+      <label>Additional Notes (Optional)</label>
+      <textarea name="notes" placeholder="Anything we should know?"></textarea>
+    </div>
+
+     <div class="policy-check">
+  <label>
+    <input type="checkbox" class="policy-checkbox" required>
+    I agree to the
+    <a href="policy.html" target="_blank">Privacy Policy</a>
+    and
+    <a href="T&C.html" target="_blank">Terms & Conditions</a>
+  </label>
+</div>
+
+    <button type="submit">Submit Request</button>
+
+  </form>
+</div>
+
+<script>
+function toggleOther(checkbox,inputId){
+  const input=document.getElementById(inputId);
+  input.style.display = checkbox.checked ? "block" : "none";
+  if(!checkbox.checked) input.value="";
+}
+
+function toggleDropdown(wrapper){
+  const dropdown = wrapper.querySelector('.multi-select-dropdown');
+  dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+}
+
+// Close dropdown if clicked outside
+document.addEventListener('click', function(e){
+  document.querySelectorAll('.multi-select-dropdown').forEach(dd=>{
+    if(!dd.parentElement.contains(e.target)){
+      dd.style.display='none';
+    }
+  });
+});
+</script>
+
+<script>
+const form = document.getElementById("leadForm");
+
+function getCheckedValues(wrapper){
+  return [...wrapper.querySelectorAll('input[type="checkbox"]:checked')]
+    .map(cb => cb.value);
+}
+
+form.addEventListener("submit", function(e){
+  e.preventDefault();
+
+  // Basic fields
+  const name = form.querySelector('input[name="full_name"]').value.trim();
+  const email = form.querySelector('input[name="email"]').value.trim();
+  const phone = form.querySelector('input[name="phone"]').value.trim();
+
+  // Multi-selects
+  const services = getCheckedValues(form.querySelectorAll('.form-group')[3]);
+  const budget   = getCheckedValues(form.querySelectorAll('.form-group')[4]);
+  const timeline = getCheckedValues(form.querySelectorAll('.form-group')[5]);
+  const goal     = getCheckedValues(form.querySelectorAll('.form-group')[6]);
+
+  // Validation
+  if(name.length < 3){
+    alert("Please enter a valid full name");
+    return;
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(!emailRegex.test(email)){
+    alert("Please enter a valid email address");
+    return;
+  }
+
+  if(phone.length < 7){
+    alert("Please enter a valid phone or WhatsApp number");
+    return;
+  }
+
+  if(services.length === 0){
+    alert("Please select at least one service");
+    return;
+  }
+
+  if(budget.length === 0){
+    alert("Please select a budget range");
+    return;
+  }
+
+  if(timeline.length === 0){
+    alert("Please select a timeline");
+    return;
+  }
+
+  if(goal.length === 0){
+    alert("Please select a project goal");
+    return;
+  }
+
+  // EmailJS payload
+  const templateParams = {
+    full_name: name,
+    email: email,
+    phone: phone,
+    services: services.join(", "),
+    budget: budget.join(", "),
+    timeline: timeline.join(", "),
+    goal: goal.join(", "),
+    notes: form.querySelector('textarea[name="notes"]')?.value || "N/A",
+    source: "Website Lead Form",
+    submitted_at: new Date().toISOString()
+  };
+
+  /* ==========================
+     EMAILJS ONLY (FINAL)
+     ========================== */
+  emailjs.send(
+    "service_yxdnmnu",
+    "template_yk4k28w",
+    templateParams
+  )
+  .then(() => {
+    alert("Form submitted successfully");
+    window.location.href = "index.html";
+  })
+  .catch(err => {
+    console.error("EmailJS failed:", err);
+    alert("Submission failed! Please try again or contact directly via email.");
+  });
+
+});
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+  (function(){
+    emailjs.init("7s81p_ODzI5fUyl7j"); // 👈 EmailJS public key
+  })();
+</script>
+
+</body>
+</html>
