@@ -257,7 +257,7 @@ feedbackForm.addEventListener("submit", function (event) {
       "redirect_after_login",
       window.location.pathname + "#feedback-section"
     );
-    window.location.href = "/login";
+    window.location.href = "login.html";
     return;
   }
 

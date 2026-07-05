@@ -236,7 +236,7 @@ feedbackForm.addEventListener("submit", function (event) {
   const token = localStorage.getItem("token");
   if (!token) {
     localStorage.setItem("redirect_after_login", window.location.pathname + "#feedback-section");
-    window.location.href = "/login";
+    window.location.href = "login.html";
     return;
   }
 
@@ -617,7 +617,7 @@ function sendEmail(attachment) {
       alert("Form submitted successfully! - We'll get in touch when we need any other information.");
 
       // Redirect to aiagents.html
-      window.location.href = "/aiagents";
+      window.location.href = "aiagents.html";
     })
     .catch(err => {
       console.error(err);
