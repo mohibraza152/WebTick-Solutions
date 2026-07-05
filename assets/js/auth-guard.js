@@ -11,7 +11,7 @@ function requireAuth() {
         localStorage.setItem("redirectAfterLogin", window.location.href);
 
         // Always send user to login (NOT signup)
-        window.location.href = "login.html";
+        window.location.href = "/login";
 
         return false;
     }
@@ -20,7 +20,7 @@ function requireAuth() {
 
 // --- After Signup → Redirect to Login ---
 function afterSignup() {
-    window.location.href = "login.html";
+    window.location.href = "/login";
 }
 
 // --- After Login → Redirect Back or Default ---
@@ -35,14 +35,14 @@ function afterLogin(token) {
         localStorage.removeItem("redirectAfterLogin");
         window.location.href = redirectURL;
     } else {
-        window.location.href = "index.html";  // default home page
+        window.location.href = "/index";  // default home page
     }
 }
 
 // --- If Logged-in User Opens Login/Signup, Redirect to Home ---
 function blockAuthPages() {
     if (isLoggedIn()) {
-        window.location.href = "index.html";
+        window.location.href = "/index";
     }
 }
 
@@ -52,5 +52,5 @@ function logoutUser() {
     localStorage.removeItem("redirectAfterLogin");
 
     // After logout → go to home (NOT signup)
-    window.location.href = "index.html";
+    window.location.href = "/index";
 }

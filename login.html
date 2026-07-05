@@ -146,15 +146,15 @@
   <label>
     <input type="checkbox" class="policy-checkbox" required>
     I agree to the
-    <a href="policy.html">Privacy Policy</a>
+    <a href="/policy">Privacy Policy</a>
     and
-    <a href="T&C.html">Terms & Conditions</a>
+    <a href="/T&C">Terms & Conditions</a>
   </label>
 </div>
 
       <button type="submit">Login</button>
     </form>
-    <p class="switch-link">Don't have an account? <a href="signup.html">Sign Up</a></p>
+    <p class="switch-link">Don't have an account? <a href="/signup">Sign Up</a></p>
   </div>
   
 
@@ -200,7 +200,7 @@ loginForm.addEventListener('submit', async (e) => {
     // ❗ FIXED: Only success flag matters
     if (data.success === true) {
       localStorage.setItem('token', data.token);
-      window.location.href = "index.html";
+      window.location.href = "/index";
     } else {
       passwordError.textContent = data.message || "Invalid credentials";
     }

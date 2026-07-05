@@ -29,54 +29,33 @@ app.use('/api/auth', require('./routes/auth'));
 // ======================
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, '/index'));
 });
 
 app.get('/aiagents', (req, res) => {
-    res.sendFile(path.join(__dirname, 'aiagents.html'));
+    res.sendFile(path.join(__dirname, '/aiagents'));
 });
 
 app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'login.html'));
+    res.sendFile(path.join(__dirname, '/login'));
 });
 
 app.get('/signup', (req, res) => {
-    res.sendFile(path.join(__dirname, 'signup.html'));
+    res.sendFile(path.join(__dirname, '/signup'));
 });
 
 app.get('/policy', (req, res) => {
-    res.sendFile(path.join(__dirname, 'policy.html'));
+    res.sendFile(path.join(__dirname, '/policy'));
 });
 
 app.get('/t&c', (req, res) => {
-    res.sendFile(path.join(__dirname, 'T&C.html'));
+    res.sendFile(path.join(__dirname, '/T&C'));
 });
 
 app.get('/lead_form', (req, res) => {
-    res.sendFile(path.join(__dirname, 'lead_form.html'));
+    res.sendFile(path.join(__dirname, '/lead_form'));
 });
 
-// Optional pages
-
-app.get('/dashboard', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dashboard.html'));
-});
-
-app.get('/payment', (req, res) => {
-    res.sendFile(path.join(__dirname, 'payment.html'));
-});
-
-app.get('/marketing_automation', (req, res) => {
-    res.sendFile(path.join(__dirname, 'marketing_automation.html'));
-});
-
-app.get('/saas_payment', (req, res) => {
-    res.sendFile(path.join(__dirname, 'saas_payment.html'));
-});
-
-app.get('/web_landing-page', (req, res) => {
-    res.sendFile(path.join(__dirname, 'web_landing-page.html'));
-});
 
 // 404
 

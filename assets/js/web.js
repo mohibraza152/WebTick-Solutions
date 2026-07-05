@@ -446,7 +446,7 @@ feedbackForm.addEventListener("submit", function (event) {
   const token = localStorage.getItem("token");
   if (!token) {
     localStorage.setItem("redirect_after_login", window.location.pathname + "#feedback-section");
-    window.location.href = "login.html";
+    window.location.href = "/login";
     return;
   }
 
@@ -546,7 +546,7 @@ function protectedOpenWebsiteModal() {
   if (!token) {
     // Save current desired page/feature
     localStorage.setItem("redirect_after_login", window.location.pathname + "#websiteModal");
-    window.location.href = "login.html";
+    window.location.href = "/login";
     return;
   }
 

@@ -299,9 +299,9 @@ button:hover{
   <label>
     <input type="checkbox" class="policy-checkbox" required>
     I agree to the
-    <a href="policy.html" target="_blank">Privacy Policy</a>
+    <a href="/policy" target="_blank">Privacy Policy</a>
     and
-    <a href="T&C.html" target="_blank">Terms & Conditions</a>
+    <a href="/T&C" target="_blank">Terms & Conditions</a>
   </label>
 </div>
 
@@ -415,7 +415,7 @@ form.addEventListener("submit", function(e){
   )
   .then(() => {
     alert("Form submitted successfully");
-    window.location.href = "index.html";
+    window.location.href = "/index";
   })
   .catch(err => {
     console.error("EmailJS failed:", err);
