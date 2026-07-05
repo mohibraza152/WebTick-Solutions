@@ -200,7 +200,7 @@ loginForm.addEventListener('submit', async (e) => {
     // ❗ FIXED: Only success flag matters
     if (data.success === true) {
       localStorage.setItem('token', data.token);
-      window.location.href = "/index";
+      window.location.href = "/";
     } else {
       passwordError.textContent = data.message || "Invalid credentials";
     }

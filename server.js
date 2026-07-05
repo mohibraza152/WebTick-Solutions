@@ -29,7 +29,7 @@ app.use('/api/auth', require('./routes/auth'));
 // ======================
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '/index'));
+    res.sendFile(path.join(__dirname, '/'));
 });
 
 app.get('/aiagents', (req, res) => {

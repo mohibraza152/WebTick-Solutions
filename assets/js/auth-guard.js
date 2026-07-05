@@ -35,14 +35,14 @@ function afterLogin(token) {
         localStorage.removeItem("redirectAfterLogin");
         window.location.href = redirectURL;
     } else {
-        window.location.href = "/index";  // default home page
+        window.location.href = "/";  // default home page
     }
 }
 
 // --- If Logged-in User Opens Login/Signup, Redirect to Home ---
 function blockAuthPages() {
     if (isLoggedIn()) {
-        window.location.href = "/index";
+        window.location.href = "/";
     }
 }
 
@@ -52,5 +52,5 @@ function logoutUser() {
     localStorage.removeItem("redirectAfterLogin");
 
     // After logout → go to home (NOT signup)
-    window.location.href = "/index";
+    window.location.href = "/";
 }
