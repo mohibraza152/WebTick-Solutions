@@ -189,7 +189,7 @@ loginForm.addEventListener('submit', async (e) => {
   if (hasError) return;
 
   try {
-    const response = await fetch('http://localhost:5000/api/auth/login', {
+    const response = await fetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password })
@@ -212,11 +212,11 @@ loginForm.addEventListener('submit', async (e) => {
 });
 </script>
 
+<script src="assets/js/auth-guard.js"></script>
 
 <script>
 blockAuthPages(); // If logged in → avoid login page
 </script>
 
-<script src="assets/js/auth-guard.js"></script>
 </body>
 </html>

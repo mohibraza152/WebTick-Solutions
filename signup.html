@@ -213,7 +213,7 @@ signupForm.addEventListener('submit', async (e) => {
 
   // Server request
   try {
-    const response = await fetch('http://localhost:5000/api/auth/signup', {
+    const response = await fetch('/api/auth/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password })
@@ -221,12 +221,12 @@ signupForm.addEventListener('submit', async (e) => {
 
     const data = await response.json();
 
-    if (response.ok) {
-      localStorage.setItem('token', data.token);
-      window.location.href = "login.html";
-    } else {
-      serverError.textContent = data.message || "Signup failed";
-    }
+   if (response.ok) {
+    alert("Signup successful!");
+    window.location.href = "login.html";
+} else {
+    serverError.textContent = data.message || "Signup failed";
+}
   } catch (err) {
     serverError.textContent = "Server not reachable. Please try again later.";
     console.error(err);
@@ -235,6 +235,7 @@ signupForm.addEventListener('submit', async (e) => {
 </script>
 
 <script src="assets/js/auth-guard.js"></script>
+
 <script>
 blockAuthPages(); // Keep this to block signup if already logged in
 </script>
