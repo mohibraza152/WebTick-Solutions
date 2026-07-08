@@ -2,8 +2,8 @@ User-agent: *
 
 Allow: /
 
-Disallow: /login
-Disallow: /signup
+Disallow: /login.html
+Disallow: /signup.html
 Disallow: /api/
 
 Sitemap: https://www.webticksolutions.com/sitemap.xml
