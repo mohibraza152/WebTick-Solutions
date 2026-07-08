@@ -1,0 +1,9 @@
+User-agent: *
+
+Allow: /
+
+Disallow: /login
+Disallow: /signup
+Disallow: /api/
+
+Sitemap: https://www.webticksolutions.com/sitemap.xml
